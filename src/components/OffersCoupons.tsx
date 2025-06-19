@@ -9,8 +9,16 @@ type Coupon = {
   used: number;
 };
 
+type Campaign = {
+  id: number;
+  name: string;
+  discount: number;
+  startDate: string;
+  endDate: string;
+};
+
 export default function OffersCoupons() {
-  // State for coupons and form
+  // State for coupons and form (your existing code)
   const [coupons, setCoupons] = useState<Coupon[]>([
     { id: 1, code: "SUMMER20", discount: 20, expiry: "2024-08-31", used: 142 },
     { id: 2, code: "WELCOME10", discount: 10, expiry: "2024-12-31", used: 89 },
@@ -22,7 +30,25 @@ export default function OffersCoupons() {
     expiry: "",
   });
 
-  // Form handlers
+  // New state for campaigns
+  const [campaigns, setCampaigns] = useState<Campaign[]>([
+    {
+      id: 1,
+      name: "Summer Sale",
+      discount: 15,
+      startDate: "2024-06-01",
+      endDate: "2024-08-31"
+    },
+    {
+      id: 2,
+      name: "Holiday Special",
+      discount: 20,
+      startDate: "2024-12-01",
+      endDate: "2024-12-31"
+    }
+  ]);
+
+  // Your existing form handlers (unchanged)
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setNewCoupon({ ...newCoupon, [name]: name === "discount" ? Number(value) : value });
@@ -42,9 +68,14 @@ export default function OffersCoupons() {
     setNewCoupon({ code: "", discount: 10, expiry: "" });
   };
 
+  // New handler for deleting campaigns
+  const handleDeleteCampaign = (id: number) => {
+    setCampaigns(campaigns.filter(campaign => campaign.id !== id));
+  };
+
   return (
     <div className="p-6">
-      {/* Header + Add Button */}
+      {/* Your existing header and coupon form (unchanged) */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Offers & Coupons</h1>
         <button
@@ -55,7 +86,6 @@ export default function OffersCoupons() {
         </button>
       </div>
 
-      {/* Coupon Creation Form (Modal) */}
       {showForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-6 rounded-lg max-w-md w-full">
@@ -115,8 +145,8 @@ export default function OffersCoupons() {
         </div>
       )}
 
-      {/* Coupons Table */}
-      <div className="overflow-x-auto">
+      {/* Your existing coupons table (unchanged) */}
+      <div className="overflow-x-auto mb-8">
         <table className="min-w-full bg-white border">
           <thead>
             <tr className="bg-gray-100">
@@ -154,6 +184,42 @@ export default function OffersCoupons() {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* New Campaigns Section */}
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Campaign Offers</h2>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="px-4 py-2 text-left">Name</th>
+                <th className="px-4 py-2 text-left">Discount</th>
+                <th className="px-4 py-2 text-left">Start Date</th>
+                <th className="px-4 py-2 text-left">End Date</th>
+                <th className="px-4 py-2 text-left">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {campaigns.map((campaign) => (
+                <tr key={campaign.id} className="border-b">
+                  <td className="px-4 py-2">{campaign.name}</td>
+                  <td className="px-4 py-2">{campaign.discount}%</td>
+                  <td className="px-4 py-2">{campaign.startDate}</td>
+                  <td className="px-4 py-2">{campaign.endDate}</td>
+                  <td className="px-4 py-2">
+                    <button
+                      onClick={() => handleDeleteCampaign(campaign.id)}
+                      className="text-red-500 hover:underline"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
