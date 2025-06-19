@@ -15,7 +15,8 @@ import {
   LogOut,
   LayoutDashboard,
   TrendingUp,
-  CreditCard
+  CreditCard,
+  Tags
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -33,7 +34,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, activeItem, onItemClick }) =>
     { id: 'transactions', label: 'Transactions', icon: CreditCard },
     { id: 'users', label: 'Users', icon: User },
     { id: 'settings', label: 'Settings', icon: Settings },
-    { id: 'Reviews', label: 'Reviews', icon: User}
+    { id: 'Reviews', label: 'Reviews', icon: User},
+    { id: 'offers', label: 'Offers & Coupons', icon: Tags },
   ];
 
   return (
