@@ -8,6 +8,7 @@ import Customers from './components/Customers';
 import Transactions from './components/Transactions';
 import Users from './components/Users';
 import Reviews from './components/Reviews'; 
+import OffersCoupons from './components/OffersCoupons';
 
 
 function App() {
@@ -40,6 +41,8 @@ function App() {
         return <Users />;
       case 'reviews':
         return <Reviews/>;
+      case 'offers': 
+        return <OffersCoupons />;
       case 'settings':
         return (
           <div className="p-6">
