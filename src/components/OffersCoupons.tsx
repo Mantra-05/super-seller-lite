@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
 // Types
 type Coupon = {
@@ -43,7 +42,6 @@ export default function OffersCoupons() {
     setNewCoupon({ code: "", discount: 10, expiry: "" });
   };
 
-  // Main component
   return (
     <div className="p-6">
       {/* Header + Add Button */}
@@ -137,13 +135,12 @@ export default function OffersCoupons() {
                 <td className="px-4 py-2">{coupon.expiry}</td>
                 <td className="px-4 py-2">{coupon.used}</td>
                 <td className="px-4 py-2">
-                  <Link
-                    to="#"
-                    className="text-blue-500 hover:underline mr-2"
+                  <button
                     onClick={() => alert(`Edit ${coupon.code}`)}
+                    className="text-blue-500 hover:underline mr-2"
                   >
                     Edit
-                  </Link>
+                  </button>
                   <button
                     onClick={() =>
                       setCoupons(coupons.filter((c) => c.id !== coupon.id))
